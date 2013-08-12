@@ -3,45 +3,76 @@
 /* Controllers */
 
 
-function NavBarController($scope) {
-    $scope.onTwitterLogin = function()
-    {
-        // a direct window.location to overcome Angular intercepting your call!
-        window.location = "/auth/twitter";
-    }
-
-    $scope.onFacebookLogin = function () {
-
-    }
+function HomeViewController($scope){
+        $('.nav li').siblings('li').removeClass('active');
+        $('#homeButton').addClass('active');
 }
 
-function IndexCtrl($scope, $http) {
+function WorkViewController($scope){
+        $('.nav li').siblings('li').removeClass('active');
+        $('#workButton').addClass('active');
+}
+
+function MusicViewController($scope){
+        $('.nav li').siblings('li').removeClass('active');
+        $('#musicButton').addClass('active');
+}
+
+
+function WorkItems($scope,$http,mySharedService) {
   $scope.posts = [];
 
-  $http({method: 'GET', url: '/api/posts'}).
+  $http({method: 'GET', url: '/api/work'}).
     success(function(data, status, headers, config) {
       $scope.posts = data.posts;
-    });
-}
 
 
-function CarouselDemoCtrl($scope) {
-  $scope.myInterval = 5000;
-  var slides = $scope.slides = [];
-  $scope.addSlide = function() {
-    var newWidth = 200 + ((slides.length + (25 * slides.length)) % 150);
-    slides.push({
-      image: 'http://placekitten.com/' + newWidth + '/200',
-      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-    });
+  });
+
+  $scope.seeMoreButtonWasClicked = function(msg) {
+    //alert(JSON.stringify($scope.posts[$index]));
+    mySharedService.prepForBroadcast(msg);
   };
-  for (var i=0; i<4; i++) {
-    $scope.addSlide();
+
+  $scope.$on('handleBroadcast',function(){
+    $scope.message = mySharedService.message;
+  });
+};
+
+function CarouselDemoCtrl($scope,$http,mySharedService) {
+  $scope.slides = [];
+  $scope.getCarouselSlides = function(index){
+  $scope.slides = [];
+  $http({method: 'GET', url: '/api/workgallery/'+index}).
+    success(function(data, status, headers, config) {
+      for(var i = 0; i<data.post.length;i++){
+        $scope.slides.push({
+          image: data.post[i]
+        });
+      }
+  });
+
+
   }
+
+  $scope.$on('handleBroadcast',function(){
+    $scope.message = mySharedService.message;
+    $scope.getCarouselSlides($scope.message);
+  });
 }
 
-var ModalDemoCtrl = function ($scope) {
+
+//Music 
+function SoundCloudController($scope,$http) {
+  $scope.tracks = [];
+  $http({method: 'GET', url: '/api/music'}).
+    success(function(data, status, headers, config) {
+      $scope.tracks = data.tracks;
+  });
+}
+
+
+function ModalDemoCtrl($scope) {
 
   $scope.open = function () {
     $scope.shouldBeOpen = true;
@@ -50,6 +81,11 @@ var ModalDemoCtrl = function ($scope) {
   $scope.close = function () {
     $scope.closeMsg = 'I was closed at: ' + new Date();
     $scope.shouldBeOpen = false;
+  };
+
+  $scope.send = function () {
+    alert('clicked the send button');
+    //should call close after send 
   };
 
   $scope.items = ['item1', 'item2'];
@@ -61,15 +97,38 @@ var ModalDemoCtrl = function ($scope) {
 
 };
 
-
-// function LoginCtrl($scope,$location)
-// {
-//     $scope.onLoginClick = function()
-//     {
-//         // a direct window.location to overcome Angular intercepting your call!
-//         window.location = "/auth/twitter";
-//     }
+// var imageControl = function ($scope){
+//   $scope.numbers = [1,2,3,4,5];
+//   $scope.$watch('filteredNumbers');
 // }
+
+// function TodoCtrl($scope) {
+//   $scope.todos = [
+//     {text:'learn angular', done:true},
+//     {text:'build an angular app', done:false}];
+ 
+//   $scope.addTodo = function() {
+//     $scope.todos.push({text:$scope.todoText, done:false});
+//     $scope.todoText = '';
+//   };
+ 
+//   $scope.remaining = function() {
+//     var count = 0;
+//     angular.forEach($scope.todos, function(todo) {
+//       count += todo.done ? 0 : 1;
+//     });
+//     return count;
+//   };
+ 
+//   $scope.archive = function() {
+//     var oldTodos = $scope.todos;
+//     $scope.todos = [];
+//     angular.forEach(oldTodos, function(todo) {
+//       if (!todo.done) $scope.todos.push(todo);
+//     });
+//   };
+// }
+
 //
 // function AddPostCtrl($scope, $http, $location) {
 //   $scope.submitPost = function () {

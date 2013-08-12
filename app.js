@@ -8,7 +8,7 @@ var express = require('express'),
     api = require('./routes/api'),
     http = require('http');
 
-var app = module.exports = express();
+var app = express();
 
 // Configuration
 app.configure(function() {
@@ -39,16 +39,16 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
-// JSON API
-app.get('/api/name', api.name);
+//WORK API
+app.get('/api/work', api.work);
+app.get('/api/workgallery/:id', api.workGallery);
+//MUSIC API
+app.get('/api/music', api.music);
+
+
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
-
-// // Start server
-// app.listen(3000, function(){
-// 	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-// });
 
 http.createServer(app).listen(app.get('port'),function(){
     console.log("Express server listening on port: " + app.get('port'));

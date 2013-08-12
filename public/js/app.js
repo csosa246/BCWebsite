@@ -6,12 +6,15 @@ config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/home', {
       templateUrl: 'partials/home',
+      controller: HomeViewController,
     }).
     when('/work', {
       templateUrl: 'partials/work',
+      controller: WorkViewController,
     }).
     when('/music', {
       templateUrl: 'partials/music',
+      controller: MusicViewController
     }).
     otherwise({
       redirectTo: '/home'

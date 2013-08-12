@@ -4,17 +4,18 @@
  */
 
 //get correct directory path
-var filePath = __dirname.replace('routes', 'views/')
+//var filePath = __dirname.replace('routes', 'views/')
 
 exports.index = function(req, res) {
-		console.log("From index: " + req.params.name);
-
-	res.sendfile(filePath + 'index.html');
+		//console.log("From index: " + req.params.name);
+	res.render('index');
+	//res.sendfile(filePath + 'index.html');
 };
 
 exports.partials = function (req, res) {
-		console.log("From partials: " + req.params.name);
-
- 	var name = req.params.name;
-  	res.sendfile(filePath + 'partials/' + name + '.html');
+	//console.log("From partials: " + req.params.name);
+ 	//var name = req.params.name;
+  	//res.sendfile(filePath + 'partials/' + name + '.html');
+  	var name = req.params.name;
+  	res.render('partials/' + name);
 };
