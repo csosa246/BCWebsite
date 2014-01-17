@@ -1,164 +1,170 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Crae Sosa</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel='stylesheet' href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
-    <style type="text/css">
-        body {
-            font-family: 'Roboto', sans-serif;
-            padding-bottom: 40px;
-            color: #5a5a5a;
-            background-image: url('http://fc01.deviantart.net/fs70/f/2012/108/b/f/dark_turquoise_windows_8_bubbles_background_by_gifteddeviant-d4wkifd.png');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-
-        #myModal {
-            width: 900px; /* SET THE WIDTH OF THE MODAL */
-            margin: 0px 0 0 -450px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
-            background-color: #000000;
-        }
-
-        .peopleCarouselImg img {
-            width: auto;
-            height: 550px;
-            max-height: 550px;
-        }
-
-        /* CUSTOMIZE THE NAVBAR
-          -------------------------------------------------- */
-        .navbar-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            margin-top: 20px;
-            margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
-        }
-
-        /* Remove border and change up box shadow for more contrast */
-        .navbar-inner {
-            background-color: #2c2c2c; /* fallback color, place your own */
-            /* Gradients for modern browsers, replace as you see fit */
-            background-image: -moz-linear-gradient(top, #333333, #222222);
-            background-image: -ms-linear-gradient(top, #333333, #222222);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
-            background-image: -webkit-linear-gradient(top, #333333, #222222);
-            background-image: -o-linear-gradient(top, #333333, #222222);
-            background-image: linear-gradient(top, #333333, #222222);
-            background-repeat: repeat-x;
-            /* IE8-9 gradient filter */
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
-        }
-
-        /* Navbar links: increase padding for taller navbar */
-        .navbar .nav > li > a {
-            font-size: 21px;
-            padding: 15px 20px;
-            color: #dddddd;
-            padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
-            text-shadow: 0 -1px 0 rgba(1, 1, 1, .5);
-        }
-
-        /* Offset the responsive button for proper vertical alignment */
-        .navbar .btn-navbar {
-            margin-top: 10px;
-        }
-
-        .featurette-top {
-            padding-top: 10px; /* Vertically center images part 1: add padding above and below text. */
-            overflow: hidden; /* Vertically center images part 2: clear their floats. */
-        }
-
-        .featurette-divider {
-            margin: 0px 0; /* Space out the Bootstrap <hr> more */
-        }
-
-        .featurette {
-            color: #dddddd;
-            padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
-            overflow: hidden; /* Vertically center images part 2: clear their floats. */
-        }
-
-        .featurette-image {
-            margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
-        }
-
-            /* Give some space on the sides of the floated elements so text doesn't run right into it. */
-        .featurette-image.pull-left {
-            margin-right: 40px;
-        }
-
-        .featurette-image.pull-right {
-            margin-left: 40px;
-        }
-
-        /* Thin out the marketing headings */
-        .featurette-heading {
-            color: #ffffff;
-            font-size: 50px;
-            font-weight: 300;
-            line-height: 1;
-            letter-spacing: -1px;
-        }
-
-        .featurette-language {
-            font-size: 20px;
-        }
-    </style>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="Seamless information exchange.">
+    <title>Blue Canary</title>
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100%7COpen+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
-<body>
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="#"></a>
-            <div class="nav-collapse">
-                <ul class="nav">
-                    <li id="homeButton" class="active"><a href="/home">Home</a></li>
-                    <li id="workButton"><a href="/work">Work</a></li>
-                    <li id="musicButton"><a href="/music">Music</a></li>
-                    <li id="designButton"><a href="/design">Design</a></li>
-                    <li><a ng-controller="ModalDemoCtrl" ng-click="open()">Contact
-                        <div modal="shouldBeOpen" close="close()" options="opts">
-                            <div class="modal-header">
-                                <h4>Send me a message!</h4>
-                                <input placeholder="Email" ng-model="contact.sender"></input>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="">
-                                    <textarea name="comments" cols="20" rows="5" placeholder="Message" ng-model="contact.message"></textarea><br>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-success" ng-click="send()">Send</button>
-                            </div>
-                        </div>
-                    </a></li>
-                </ul>
+
+<style text = "text/css">
+    #signup{
+        height: 500px;
+    }
+</style>
+<!--[if lt IE 9 ]>
+<body id="homepage" class="lt-ie9" data-spy="scroll" data-target="#header"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<body id="homepage" data-spy="scroll" data-target="#header"><!--<![endif]-->
+<div id="header">
+    <div class="wrapper clearfix">
+        <h1 id="bluecanary_header"> 
+<!--             <a href="/">
+                <img alt="bluecanary_logo" src="" title="bluecanary" />
+            </a> -->
+        </h1>
+        <ul class="nav">
+            <li>
+                <a href="#this-is-bluecanary">Blue Canary</a>
+            </li>
+            <li>
+                <a href="#why">Why?</a>
+            </li>
+            <li>
+                <a href="#our-app">The app</a>
+            </li>
+            <li>
+                <a href="#community">Community</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="this-is-bluecanary">
+    <div class="wrapper clearfix">
+        <div id="backing">
+            <div class="value">
+                <h2>Blue Canary</h2>
             </div>
-            <!-- /.nav-collapse -->
+            <div class="preorder">
+                <p> Seamless Information Exchange.</p></br>
+<!--                 <div>
+                    <input class="span3" placeholder = "Email"></input>
+                    <button type="button" class="button button-rounded button-flat-primary">Subscribe!</button>
+                </div> -->
+            </div>
+        </div>
+        <div id="play">
+            <div class="video">
+                <iframe src="http://www.youtube.com/embed/JduEjnGpmXA" width="600" height="350" frameborder="0"
+                        webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+<!--             <ul class="social clearfix">
+                <li>
+                    <a href="#" class="twitter-share">
+                        <img alt="Share_twitter"
+                             src="http://d1ttvm38ivlpk0.cloudfront.net/assets/share_twitter-ff9ae1359c7a572083524430e9cc2cb2.png"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="facebook-share">
+                        <img alt="Share_facebook"
+                             src="http://d1ttvm38ivlpk0.cloudfront.net/assets/share_facebook-6ef37f328a1cc3d9e7e7e403bf5d0969.png"/>
+                    </a>
+                </li>
+            </ul> -->
         </div>
     </div>
-    <!-- /navbar-inner -->
 </div>
-<div ng-view>
+
+<div>
+    <iframe scrolling = "no" height = "240px" style = "width:100%" class = "signup" src="http://bluecanary.launchrock.com"></iframe>
 </div>
+
+<div class="big_wrapper" id="why">
+    <div class="wrapper">
+        <div class="center">
+            <h3>
+                The business card, fliers, QR Code Melieu.
+            </h3>
+            <ul class="clearfix">
+                <li class="feature2">
+                    <img src = " images/icons/flier_icon.jpg"></img>
+                    <h4>Fliers</h4>
+                    <p>Fliers don't often get the <br> information  across.</p>
+                </li>
+                <li class="feature1">
+                    <img src = " images/icons/business_card_icon.jpg"></img>
+                    <h4>Business Cards.</h4>
+                    <p>Business card realtionships are seldom meaningful, we lose them, we forget who they are and why we talked to them. </p>
+                </li>
+                <li class="feature3">
+                    <img src = " images/icons/qr_icon.jpg"></img>
+                    <h4>QR codes</h4>
+                    <p>Let's face it, holding up a phone and trying to get information is silly.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="big_wrapper" id="our-app">
+    <div class="wrapper clearfix">
+        <div class="point_copy">
+            <h3>
+                Exchange information<br>seamlessly.
+            </h3>
+            <p>
+                Blue Canary makes it easy to send and receive information to those around you.
+            </p>
+            <ul>
+                <li>
+                    <h4 class="more">1.&nbsp; &nbsp;Scan</h4>
+                    <p>Use the app to instantly scan for canary's<br>within 150 feet.</p>
+                </li>
+                <li>
+                    <h4 class="sharing">2.&nbsp; &nbsp; Browse</h4>
+                    <p>Browse through people or<br> businesses you want to connect with.</p>
+                </li>
+                <li>
+                    <h4 class="sound">3.&nbsp; &nbsp; Add</h4>
+                    <p>Add people to your social networks or connect <br> with businesses instantly.  No need for business cards!</p>
+                </li>
+            </ul>
+        </div>
+        <div class="app">
+            <img alt="App" src="http://d1ttvm38ivlpk0.cloudfront.net/assets/app-1ab40165b8256fbf38fd77e2b8241040.jpg"
+                 title=""/>
+            <div class="video_holder">
+                <img src="images/image1BC.png" width="283" height="506" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></img>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="big_wrapper" id="community">
+    <div class="wrapper">
+        <h3>Building a community</h3>
+        <p>Join us!</p>
+    </div>
+</div>
+
+<div class="big_wrapper" id="shipping">
+    <div class="wrapper clearfix">
+        <div class="ships">
+            <h2>Launching 2014</h2>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="wrapper clearfix">
+        <ul class="clearfix">
+            <li>
+                &copy; 2013 Blue Canary
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="js/lib/lib.js"></script>
 </body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.5.0.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
 </html>
